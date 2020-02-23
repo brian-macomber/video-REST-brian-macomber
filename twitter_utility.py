@@ -9,9 +9,9 @@ import textwrap
 
 class TwitterUtility():
 
-    def get_auth(self, path):
+    def get_auth(self, path_name):
         config = configparser.ConfigParser()
-        config.read(path)
+        config.read(path_name)
 
         # handling authentiation using tweepy
         try:
