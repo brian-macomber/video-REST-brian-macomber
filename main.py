@@ -103,7 +103,6 @@ def user_api():
         -crf 25 -pix_fmt yuv420p -filter:v \"setpts=50.0*PTS\" tweet_video.mp4")
 
     return send_file("tweet_video.mp4")
-    # return jsonify(tweets)
 
 
 app.run()
