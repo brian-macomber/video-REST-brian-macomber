@@ -49,9 +49,7 @@ class TwitterUtility():
             for tweet in timeline:
                 # check if tweet was within the last 24 hours
                 if today - timedelta(hours=24) <= tweet.created_at <= today:
-                    # wrapper function for tweets goes here
-                    wrapped_tweet = textwrap.wrap(tweet.text, width=40)
-                    currTweets.append(wrapped_tweet)
+                    currTweets.append(tweet)
 
             return currTweets
         except tweepy.error.TweepError:

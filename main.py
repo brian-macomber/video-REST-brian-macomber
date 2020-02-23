@@ -9,8 +9,6 @@ app = flask.Flask(__name__)
 app.config["DEBUG"] = True
 
 
-# *********** Uncomment here to run on localhost ****************
-# once functional - it will go to this localhost
 @app.route('/', methods=['GET'])
 def homepage():
     html = "<h1>Brian Macomber Video API - EC500</h1>"
@@ -52,20 +50,20 @@ def user_api():
     return send_file("tweet_video.mp4")
 
 
-app.run()
+# app.run()
 
 
-# if __name__ == "__main__":
+if __name__ == "__main__":
 
-#     media = MediaUtility()
-#     twitter = TwitterUtility()
+    media = MediaUtility()
+    twitter = TwitterUtility()
 
-#     media.media_cleanup()
+    media.media_cleanup()
 
-#     user = "overwatchleague"
+    user = "overwatchleague"
 
-#     twitter.get_auth("keys")
-#     tweets = twitter.get_tweets(user)
+    twitter.get_auth("keys")
+    tweets = twitter.get_tweets(user)
 
-#     media.tweet_2_image(tweets)
-#     media.create_video()
+    media.tweet_2_image(tweets)
+    # media.create_video()
