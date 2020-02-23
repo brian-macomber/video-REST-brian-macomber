@@ -24,10 +24,10 @@ for line in probe_out.splitlines():
         loudness = sline
 adjust = ref - float(loudness)
 if abs(adjust) < 0.0001:
-    print 'No normalization needed for ' + ifile
+    print('No normalization needed for ' + ifile)
 else:
-    print "Adjust %s by %.1fdB" % (ifile, adjust)
+    print("Adjust %s by %.1fdB" % (ifile, adjust))
     norm_cmd = ['ffmpeg', '-i', ifile, '-af', 'volume=%fdB' % adjust]
     norm_cmd += encopt + [ofile]
-    print ' => %s' % ' '.join(norm_cmd)
+    print(' => %s' % ' '.join(norm_cmd))
     subprocess.call(norm_cmd)
