@@ -2,6 +2,7 @@
 
 import sys, zmq, cmd
 
+
 class LavfiCmd(cmd.Cmd):
     prompt = 'lavfi> '
 
@@ -14,10 +15,11 @@ class LavfiCmd(cmd.Cmd):
     def onecmd(self, cmd):
         if cmd == 'EOF':
             sys.exit(0)
-        print 'Sending command:[%s]' % cmd
+        print('Sending command:[%s]') % cmd
         self.requester.send(cmd)
         message = self.requester.recv()
-        print 'Received reply:[%s]' % message
+        print('Received reply:[%s]') % message
+
 
 try:
     bind_address = sys.argv[1] if len(sys.argv) > 1 else "tcp://localhost:5555"

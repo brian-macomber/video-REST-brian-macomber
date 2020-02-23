@@ -24,7 +24,7 @@ for index in range(5):
 
     # in args is where i will send data for each thread - daemon so itll run in the background
     thread_worker = threading.Thread(target=dummyfunction, args=(index, q), daemon=True)
-    
+
     # starts the thread
     thread_worker.start()
 
