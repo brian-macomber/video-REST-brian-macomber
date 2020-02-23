@@ -1,2 +1,6 @@
 keys
 *.png
+.DS_Store
+ffbuild/
+ffmpeg-4.2.2
+*.mp4
