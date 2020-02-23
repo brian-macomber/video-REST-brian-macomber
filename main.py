@@ -25,6 +25,7 @@ def user_api():
 
     media.media_cleanup()
 
+    # uses overwatchleague twitter if none found in url
     if 'user' in request.args:
         username = request.args['user']
     else:
@@ -36,13 +37,14 @@ def user_api():
         return auth_exception
 
     tweets = twitter.get_tweets(username)
-    if tweets == -1:
+    if not tweets:
         html = "<h1>User has no tweets within the past 24 hours,\
                  try another user.</h1>"
         return html
-    elif tweets == -2:
-        html = "<h1>User doesn't exist, try a real user</h1>"
-        return html
+
+    # error case for undefined user
+    elif isinstance(tweets, str):
+        return tweets
 
     media.tweet_2_image(tweets)
     media.create_video()

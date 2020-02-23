@@ -53,9 +53,7 @@ class TwitterUtility():
                     wrapped_tweet = textwrap.wrap(tweet.text, width=40)
                     currTweets.append(wrapped_tweet)
 
-            if currTweets:
-                return currTweets
-            else:
-                return -1
+            return currTweets
         except tweepy.error.TweepError:
-            return -2
+            html = "<h1>User doesn't exist, try a real user</h1>"
+            return html
