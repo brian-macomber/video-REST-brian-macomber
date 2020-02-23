@@ -1,9 +1,16 @@
 import tweepy
+import flask
+from flask import jsonify, request
 from datetime import datetime, timedelta
+from PIL import Image
+
 from secret import consumer_key
 from secret import consumer_key_secret
 from secret import access_token
 from secret import access_token_secret
+
+app = flask.Flask(__name__)
+app.config["DEBUG"] = True
 
 
 def get_Tweets(screen_name):
@@ -29,8 +36,29 @@ def get_Tweets(screen_name):
 
 
 def tweet_2_image(tweet_list):
+    image_List = []
     for tweet in tweet_list:
-        print(type(tweet))
+
+        curr_image = Image.new('RGB',)
+
+
+
+
+# *********** Uncomment here to run on localhost ****************
+# once functional - it will go to this localhost
+# @app.route('/tweets', methods=['GET'])
+# def user_api():
+
+#     if 'user' in request.args:
+#         username = request.args['user']
+#     else:
+#         username = "Brian_Macomber"
+
+#     tweets = get_Tweets(username)
+#     return jsonify(tweets)
+
+
+# app.run()
 
 
 
