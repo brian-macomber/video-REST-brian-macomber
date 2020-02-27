@@ -36,7 +36,7 @@ def user_api():
     #  add the username to the queue here
     q.put(username)
 
-    # wait until all threads are done before returning the video
+    # wait until all elements are out of the queue before returning the video
     q.join()
 
     # need some way to check if process is not done yet
