@@ -1,8 +1,13 @@
 import flask
 from flask import request, send_file
 
-from twitter_utility import TwitterUtility
+from config import q
+
+import threading
+
 from media_utility import MediaUtility
+
+from threadFunction import runProcess
 
 
 app = flask.Flask(__name__)
@@ -18,9 +23,8 @@ def homepage():
 @app.route('/tweets', methods=['GET'])
 def user_api():
 
+    # clears pictures and videos from prior call
     media = MediaUtility()
-    twitter = TwitterUtility()
-
     media.media_cleanup()
 
     # uses overwatchleague twitter if none found in url
@@ -29,41 +33,36 @@ def user_api():
     else:
         username = "overwatchleague"
 
-    auth_exception = twitter.get_auth("keys")
+    #  add the username to the queue here
+    q.put(username)
 
-    if auth_exception:
-        return auth_exception
+    # wait until all threads are done before returning the video
+    q.join()
 
-    tweets = twitter.get_tweets(username)
-    if not tweets:
-        html = "<h1>User has no tweets within the past 24 hours,\
-                 try another user.</h1>"
-        return html
-
-    # error case for undefined user
-    elif isinstance(tweets, str):
-        return tweets
-
-    media.tweet_2_image(tweets)
-    media.create_video()
-
+    # need some way to check if process is not done yet
+    # if process not done yet
+    #   return html that says video is being made
+    # else
+    #   send video files
     return send_file("tweet_video.mp4")
 
 
-# app.run()
-
-
 if __name__ == "__main__":
+    # this is based on the number of cores in the machine running this
+    numThreads = 4
 
-    media = MediaUtility()
-    twitter = TwitterUtility()
+    threadList = []
 
-    media.media_cleanup()
+    # create 4 threads
+    for index in range(numThreads):
+        # in args is where i will send data for each thread - daemon so itll run in the background
+        thread_worker = threading.Thread(
+            target=runProcess,
+            daemon=True)
+        threadList.append(thread_worker)
 
-    user = "overwatchleague"
+    # starts the threads
+    for thread in threadList:
+        thread.start()
 
-    twitter.get_auth("keys")
-    tweets = twitter.get_tweets(user)
-
-    media.tweet_2_image(tweets)
-    # media.create_video()
+    app.run()

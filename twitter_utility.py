@@ -1,7 +1,6 @@
 import tweepy
 import configparser
 from datetime import datetime, timedelta
-import textwrap
 
 
 # import pdb; pdb.set_trace()
