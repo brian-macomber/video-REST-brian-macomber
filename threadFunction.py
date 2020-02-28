@@ -29,7 +29,11 @@ def runProcess():
     elif isinstance(tweets, str):
         return tweets
 
-    media.tweet_2_image(tweets)
+    video_exception = media.tweet_2_image(tweets)
+
+    if video_exception:
+        return video_exception
+
     media.create_video()
 
     # run task done for the thread here
