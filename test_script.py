@@ -23,7 +23,7 @@ def test_validUser():
 
     if os.path.isfile(path):
         twitter = TwitterUtility()
-        auth = twitter.get_auth(path)
+        twitter.get_auth(path)
         tweets = twitter.get_tweets(user)
 
         assert isinstance(tweets, list) == 1
@@ -37,7 +37,7 @@ def test_noTweetsUser():
 
     if os.path.isfile(path):
         twitter = TwitterUtility()
-        auth = twitter.get_auth(path)
+        twitter.get_auth(path)
         tweets = twitter.get_tweets(user)
 
         assert tweets == []
@@ -51,7 +51,7 @@ def test_emptyUser():
 
     if os.path.isfile(path):
         twitter = TwitterUtility()
-        auth = twitter.get_auth(path)
+        twitter.get_auth(path)
         tweets = twitter.get_tweets(user)
 
         assert tweets == []
@@ -65,7 +65,7 @@ def test_nonexistentUser():
 
     if os.path.isfile(path):
         twitter = TwitterUtility()
-        auth = twitter.get_auth(path)
+        twitter.get_auth(path)
         tweets = twitter.get_tweets(user)
         print(tweets)
         assert tweets == "<h1>User doesn't exist, try a real user</h1>"
