@@ -17,12 +17,12 @@
 - Make sure the most recent version of python is installed (https://www.python.org/downloads/)
 - On the command line run: (this will install all of the required dependencies to run the app)
     `pip3 install -r requirements.txt`
-- Create a file called 'keys' and add the twitter keys and tokens to it in the following format:
-    `[auth]`
-    `consumer_key = ****`
-    `consumer_secret = ****`
-    `access_token = ****`
-    `access_secret = ****`
+- Create a file called 'keys' and add the twitter keys and tokens to it in the following format:  
+    `[auth]`  
+    `consumer_key = ****`  
+    `consumer_secret = ****`  
+    `access_token = ****`  
+    `access_secret = ****`  
 - run: `python3 main.py` to start the application.
 - To view the home-page: `http://127.0.0.1:5000/`
 - To view the default video created for @overwatchleague `http://127.0.0.1:5000/tweets`
