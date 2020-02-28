@@ -85,7 +85,8 @@ if __name__ == "__main__":
 
     # create 4 threads
     for i in range(numThreads):
-        # in args is where i will send data for each thread - daemon so itll run in the background
+        # in args is where i will send data for each thread
+        # - daemon so itll run in the background
         thread_worker = threading.Thread(
             target=runProcess,
             daemon=True)

@@ -1,4 +1,4 @@
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw
 from io import BytesIO
 import os
 import textwrap
@@ -19,7 +19,7 @@ class MediaUtility():
             # wrapper function for tweets goes here
             wrapped_tweet = textwrap.wrap(tweet.text, width=80)
 
-            # draws text onto image - iterate through lines of the wrapped tweet
+            # draws text onto image - iterate through lines of the tweet
             i = 0
             for line in wrapped_tweet:
                 image.text(
@@ -49,8 +49,10 @@ class MediaUtility():
         img.paste(tweet_image, (0, 0))
 
     def create_video(self):
-        os.system("ffmpeg -r 30 -f image2  -s 1280x720 -i tweet_%d.png -vcodec libx264\
-         -crf 25 -pix_fmt yuv420p -filter:v \"setpts=200.0*PTS\" tweet_video.mp4")
+        os.system("ffmpeg -r 30 -f image2\
+             -s 1280x720 -i tweet_%d.png -vcodec libx264\
+            -crf 25 -pix_fmt yuv420p \
+            -filter:v \"setpts=200.0*PTS\" tweet_video.mp4")
 
     def media_cleanup(self):
         for curr_file in os.listdir():
