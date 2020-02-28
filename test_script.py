@@ -3,6 +3,13 @@ from twitter_utility import TwitterUtility
 
 import os
 
+'''
+    Note: Tests that use the twitter api first check to see if the 'keys' file
+    exists in the current directory. If the file is not present, the tests will
+    pass gracefully so that the workflow upon pushings
+    to github remainds intact.
+'''
+
 
 # ************** testing authentication ****************
 def test_authentication():
