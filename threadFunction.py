@@ -1,13 +1,15 @@
 from twitter_utility import TwitterUtility
 from media_utility import MediaUtility
 
-from config import q
+import config
 
 
 def runProcess():
 
     # get from queue - can recieve username here
-    username = q.get()
+    job = config.q.get()
+
+    username = job["user"]
 
     media = MediaUtility()
     twitter = TwitterUtility()
@@ -31,4 +33,6 @@ def runProcess():
     media.create_video()
 
     # run task done for the thread here
-    q.task_done()
+    config.q.task_done()
+
+    config.queuedJobs[config.index - 1]["status"] = "done"

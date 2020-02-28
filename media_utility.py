@@ -16,16 +16,17 @@ class MediaUtility():
             curr_image = Image.new('RGB', image_dims, color='white')
             image = ImageDraw.Draw(curr_image)
 
-            # font = ImageFont.truetype(font="CENTURY.TTF", size=10)
-
             # wrapper function for tweets goes here
             wrapped_tweet = textwrap.wrap(tweet.text, width=80)
 
             # draws text onto image - iterate through lines of the wrapped tweet
             i = 0
             for line in wrapped_tweet:
-                image.text((320, 200 + i), line.encode('utf-8'),
-                                    fill=(0, 0, 0)) #font=font)
+                image.text(
+                    (320, 200 + i),
+                    line.encode('cp1252', 'ignore'),
+                    fill=(0, 0, 0),
+                )
                 i = i + 10
 
             # adds picture if tweet includes an image
@@ -44,7 +45,7 @@ class MediaUtility():
         response = requests.get(img_url)
         tweet_image = Image.open(BytesIO(response.content))
 
-        tweet_image.thumbnail((100, 100), Image.ANTIALIAS)
+        tweet_image.thumbnail((320, 200))
         img.paste(tweet_image, (0, 0))
 
     def create_video(self):
@@ -54,4 +55,9 @@ class MediaUtility():
     def media_cleanup(self):
         for curr_file in os.listdir():
             if curr_file.endswith(".png") or curr_file.endswith(".mp4"):
+                os.remove(curr_file)
+
+    def png_cleanup(self):
+        for curr_file in os.listdir():
+            if curr_file.endswith(".png"):
                 os.remove(curr_file)
