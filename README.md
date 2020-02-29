@@ -11,6 +11,9 @@
 - Develop a queue system such that each process is multi-threaded and the API can handle more than 1 request at once.
 
 ### Summary:
+This API uses the user's twitter handle to call the user_timeline Twitter API. Each tweet in the list of tweets from the past 24 hours
+is converted into an image, then all of these images are concatenated together into a video using the FFMPEG library. The API is also multi-threaded
+so it can handle more than one process at once. This implmentation uses 4 threads, assuming the user's computer has 4 cores.
 
 ### How to run:
 - Clone the github repository to your computer.
