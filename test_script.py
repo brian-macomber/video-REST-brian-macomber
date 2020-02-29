@@ -74,7 +74,7 @@ def test_nonexistentUser():
         twitter = TwitterUtility()
         twitter.get_auth(path)
         tweets = twitter.get_tweets(user)
-        print(tweets)
+
         assert tweets == "<h1>User doesn't exist, try a real user</h1>"
     else:
         assert 1 == 1
@@ -88,3 +88,46 @@ def test_wrongFormatTweet():
     media_ex = media.tweet_2_image(tweet)
 
     assert media_ex == "<h1>Tweets from API not formatted correctly</h1>"
+
+
+def test_emptyTweets():
+    tweet = []
+
+    media = MediaUtility()
+    media_ex = media.tweet_2_image(tweet)
+
+    assert media_ex is None
+
+
+def test_removeFiles():
+    testPNG = "tweet_0.png"
+    testMP4 = "test.mp4"
+    testFile = "test.txt"
+
+    os.system("touch " + testPNG)
+    os.system("touch " + testMP4)
+    os.system("touch " + testFile)
+
+    media = MediaUtility()
+    media.media_cleanup()
+
+    assert os.path.isfile(testPNG) is False
+    assert os.path.isfile(testMP4) is False
+    assert os.path.isfile(testFile) is True
+
+
+def test_removeOnlyPNG():
+    testPNG = "tweet_0.png"
+    testMP4 = "test.mp4"
+    testFile = "test.txt"
+
+    os.system("touch " + testPNG)
+    os.system("touch " + testMP4)
+    os.system("touch " + testFile)
+
+    media = MediaUtility()
+    media.png_cleanup()
+
+    assert os.path.isfile(testPNG) is False
+    assert os.path.isfile(testMP4) is True
+    assert os.path.isfile(testFile) is True

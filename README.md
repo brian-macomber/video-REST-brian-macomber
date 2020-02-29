@@ -5,7 +5,7 @@
 #### Professor Osama Alshaykh
 
 ### Objectives:
-- Using the twitter feed of a specified user, construct a daily video summarizing the user's tweets from th last 24 hours.
+- Using the twitter feed of a specified user, construct a daily video summarizing the user's tweets from the last 24 hours.
     - Use the twitter API along with the FFMPEG library to complete this.
 - Integrate Continuous Build and Continous Integration to check if the software in each development stage passed the build process. 
 - Develop a queue system such that each process is multi-threaded and the API can handle more than 1 request at once.
@@ -13,9 +13,9 @@
 ### Summary:
 
 ### How to run:
-- Clone the github repository to your computer
-- Make sure the most recent version of python is installed (https://www.python.org/downloads/)
-- On the command line run: (this will install all of the required dependencies to run the app)
+- Clone the github repository to your computer.
+- Make sure the most recent version of python is installed (https://www.python.org/downloads/).
+- On the command line run: (this will install all of the required dependencies to run the app).
     `pip3 install -r requirements.txt`
 - Create a file called 'keys' and add the twitter keys and tokens to it in the following format:  
     `[auth]`  
