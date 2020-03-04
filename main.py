@@ -1,5 +1,6 @@
 import flask
 from flask import request, send_file, jsonify
+from flask_restful import Api
 
 import config
 
@@ -12,6 +13,7 @@ from threadFunction import runProcess
 
 
 app = flask.Flask(__name__)
+api = Api(app)
 app.config["DEBUG"] = True
 
 
