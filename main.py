@@ -1,6 +1,6 @@
 import flask
-from flask import request, send_file, jsonify
-from flask_restful import Api
+from flask import send_file, jsonify
+from flask_restful import Api, Resource, request
 
 import config
 
@@ -13,70 +13,76 @@ from threadFunction import runProcess
 
 
 app = flask.Flask(__name__)
-api = Api(app)
 app.config["DEBUG"] = True
 
-
-@app.route('/', methods=['GET'])
-def homepage():
-    html = "<h1>Brian Macomber Video API - EC500</h1>"
-    return html
+api = Api(app)
 
 
-@app.route('/processes', methods=['GET'])
-def currentProcesses():
-    return jsonify(config.queuedJobs)
-
-
-@app.route('/tweets', methods=['GET'])
-def user_api():
-
-    # clears pictures and videos from prior call
-    media = MediaUtility()
-    media.media_cleanup()
-
-    # uses overwatchleague twitter if none found in url
-    if 'user' in request.args:
-        username = request.args['user']
-    else:
-        username = "overwatchleague"
-
-    twitter = TwitterUtility()
-    auth_exception = twitter.get_auth("keys")
-
-    if auth_exception:
-        return auth_exception
-
-    tweets = twitter.get_tweets(username)
-    if not tweets:
-        html = "<h1>User has no tweets within the past 24 hours,\
-                 try another user.</h1>"
+class HomePage(Resource):
+    def get(self):
+        html = "<h1>Brian Macomber Video API - EC500</h1>"
         return html
-    # error case for undefined user
-    elif isinstance(tweets, str):
-        return tweets
-    #  add the username to the queue here
-    else:
-        # if there are no errors authenticating and getting tweets,
-        # queue the video creation for that user
-        job = {
-            "user": username,
-            "id": config.index,
-            "status": "in progress"
-            }
 
-        config.queuedJobs.append(job)
-        config.index += 1
 
-        config.q.put(job)
+class Processes(Resource):
+    def get(self):
+        return jsonify(config.queuedJobs)
 
-        # waitMessage = "<h1>Your video is being created, please wait :)</h1>"
-        # wait until queue is empty before returning the video
-        config.q.join()
 
-        media.png_cleanup()
+class User_API(Resource):
+    def get(self):
 
-        return send_file("tweet_video.mp4")
+        # clears pictures and videos from prior call
+        media = MediaUtility()
+        media.media_cleanup()
+
+        # uses overwatchleague twitter if none found in url
+        try:
+            username = request.args['user']
+        except Exception:
+            html = "<h1>Please specify a user in the URL arguments</h1>"
+            return html
+
+        twitter = TwitterUtility()
+        auth_exception = twitter.get_auth("keys")
+
+        if auth_exception:
+            return auth_exception
+
+        tweets = twitter.get_tweets(username)
+        if not tweets:
+            html = "<h1>User has no tweets within the past 24 hours,\
+                    try another user.</h1>"
+            return html
+        # error case for undefined user
+        elif isinstance(tweets, str):
+            return tweets
+        #  add the username to the queue here
+        else:
+            # if there are no errors authenticating and getting tweets,
+            # queue the video creation for that user
+            job = {
+                "user": username,
+                "id": config.index,
+                "status": "in progress"
+                }
+
+            config.queuedJobs.append(job)
+            config.index += 1
+
+            config.q.put(job)
+
+            # wait until queue is empty before returning the video
+            config.q.join()
+
+            media.png_cleanup()
+
+            return send_file("tweet_video.mp4")
+
+
+api.add_resource(HomePage, '/')
+api.add_resource(Processes, '/processes')
+api.add_resource(User_API, '/tweets')
 
 
 if __name__ == "__main__":
