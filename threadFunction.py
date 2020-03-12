@@ -34,7 +34,7 @@ def runProcess():
     if video_exception:
         return video_exception
 
-    media.create_video()
+    media.create_video(username)
 
     # run task done for the thread here
     config.q.task_done()

@@ -51,11 +51,12 @@ class MediaUtility():
         tweet_image.thumbnail((320, 200))
         img.paste(tweet_image, (0, 0))
 
-    def create_video(self):
-        os.system("ffmpeg -r 30 -f image2\
+    def create_video(self, username):
+        os.system(f"ffmpeg -r 30 -f image2\
              -s 1280x720 -i tweet_%d.png -vcodec libx264\
             -crf 25 -pix_fmt yuv420p \
-            -filter:v \"setpts=200.0*PTS\" tweet_video.mp4")
+            -filter:v \"setpts=200.0*PTS\" \
+            {username}_tweet_video.mp4")
 
     def media_cleanup(self):
         for curr_file in os.listdir():

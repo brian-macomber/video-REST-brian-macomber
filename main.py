@@ -77,7 +77,7 @@ class User_API(Resource):
 
             media.png_cleanup()
 
-            return send_file("tweet_video.mp4")
+            return send_file(f"{username}_tweet_video.mp4")
 
 
 api.add_resource(HomePage, '/')
@@ -91,10 +91,8 @@ if __name__ == "__main__":
 
     threadList = []
 
-    # create 4 threads
     for i in range(numThreads):
-        # in args is where i will send data for each thread
-        # - daemon so itll run in the background
+        # creating the thread
         thread_worker = threading.Thread(
             target=runProcess,
             daemon=True)
@@ -104,4 +102,4 @@ if __name__ == "__main__":
     for thread in threadList:
         thread.start()
 
-    app.run()
+    app.run(host="0.0.0.0")
