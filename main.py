@@ -13,7 +13,6 @@ from threadFunction import runProcess
 
 
 app = flask.Flask(__name__)
-app.config["DEBUG"] = True
 
 api = Api(app)
 
@@ -102,4 +101,4 @@ if __name__ == "__main__":
     for thread in threadList:
         thread.start()
 
-    app.run(host="0.0.0.0")
+    app.run(debug=True, host='0.0.0.0', port=80)
