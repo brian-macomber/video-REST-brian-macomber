@@ -38,6 +38,9 @@ class User_API(Resource):
         # uses overwatchleague twitter if none found in url
         try:
             username = request.args['user']
+            if username == '':
+                html = "<h1>Please specify a user in the URL arguments</h1>"
+                return html
         except Exception:
             html = "<h1>Please specify a user in the URL arguments</h1>"
             return html
