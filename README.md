@@ -6,13 +6,20 @@
 
 ### Objectives:
 - Use Flask as the web service platform for the Twitter Video API.
-- Integrate the system to a RESTFUL system and deploy onto AWS.
+- Integrate the system to be a RESTFUL system and deploy it onto AWS.
 
 ### Summary:
+This API is running on an AWS EC2 instance with the public IP of 3.135.235.40 ; 
+To see more on how this API is created view: https://github.com/BUEC500C1/video-brian-macomber
+
 
 
 ### How to run:
-This is running on an AWS EC2 instance
+In a browser, go to the url `ec2-3-135-235-40.us-east-2.compute.amazonaws.com` to see the homepage.
+To queue a process and recieve a video, enter the following url and replace the desired username with USER:
+`ec2-3-135-235-40.us-east-2.compute.amazonaws.com/tweets?user=USER`
+To view the list of past and current processes:
+`ec2-3-135-235-40.us-east-2.compute.amazonaws.com/processes`
 
 
 
