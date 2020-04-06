@@ -9,17 +9,17 @@
 - Integrate the system to be a RESTFUL system and deploy it onto AWS.
 
 ### Summary:
-This API is running on an AWS EC2 instance with the public IP of 3.135.235.40 ; 
+This API is running on an AWS EC2 instance with the public IP of 18.216.210.26 ; 
 To see more on how this API is created, view: https://github.com/BUEC500C1/video-brian-macomber
 
 
 
 ### How to run:
-In a browser, go to the url `ec2-3-135-235-40.us-east-2.compute.amazonaws.com` to see the homepage.  
+In a browser, go to the url `http://ec2-18-216-210-26.us-east-2.compute.amazonaws.com` to see the homepage.  
 To queue a process and recieve a video, enter the following url and replace USER with the desired username:  
-  `ec2-3-135-235-40.us-east-2.compute.amazonaws.com/tweets?user=USER`  
+  `http://ec2-18-216-210-26.us-east-2.compute.amazonaws.com/tweets?user=USER`  
 To view the list of past and current processes:  
-  `ec2-3-135-235-40.us-east-2.compute.amazonaws.com/processes`
+  `http://ec2-18-216-210-26.us-east-2.compute.amazonaws.com/processes`
 
 
 
